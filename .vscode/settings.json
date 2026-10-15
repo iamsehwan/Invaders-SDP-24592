@@ -1,0 +1,16 @@
+{
+    "java.completion.filteredTypes": [
+        "com.sun.*",
+        "sun.*",
+        "jdk.*",
+        "org.graalvm.*",
+        "io.micrometer.shaded.*"
+    ],
+    "java.project.sourcePaths": [
+        "test",
+        "res",
+        "src"
+    ],
+    "java.project.referencedLibraries": [],
+    "java.format.settings.url": ".vscode/java-formatter.xml"
+}

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.DifficultyAdjustWhilePlaying;
 import engine.GameSettings;
 import engine.GameState;
 import engine.ControlsConfig;
@@ -77,6 +78,11 @@ public class GameScreen extends Screen {
 	/** Last countdown number that played a sound. */
 	private int lastCountdown = -1;
 
+
+
+
+
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -114,7 +120,7 @@ public class GameScreen extends Screen {
 	 */
 	public final void initialize() {
 		super.initialize();
-
+		
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30);
@@ -131,6 +137,7 @@ public class GameScreen extends Screen {
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
+		
 	}
 
 	/**
@@ -154,6 +161,17 @@ public class GameScreen extends Screen {
 	 */
 	protected final void update() {
 		super.update();
+
+
+
+
+		
+		//플레이어의 남은 목숨 수를 DifficultyAdjustWhilePlaying 클래스에 전달함
+		DifficultyAdjustWhilePlaying.getInstance().update(this.lives);
+
+
+
+
 
 		if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
@@ -209,6 +227,7 @@ public class GameScreen extends Screen {
 		manageCollisions();
 		cleanBullets();
 		draw();
+		
 
 		if (!this.levelFinished) {
 			if (this.lives == 0) {
@@ -221,6 +240,19 @@ public class GameScreen extends Screen {
 				this.stageCleared = true;
 				this.screenFinishedCooldown.reset();
 				this.logger.info("Stage " + this.level + " cleared.");
+
+
+				//난이도 조절기가 발동된 상태에서 한 단계의 레벨을 클리어 할 때마다 레벨을 클리어 했음을
+				//  DifficultyAdjustWhilePlaying 클래스에 전달함
+				
+       			 DifficultyAdjustWhilePlaying.getInstance().onLevelCleared();
+
+
+
+
+
+		
+    
 			}
 		}
 
