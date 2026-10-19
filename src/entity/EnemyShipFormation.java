@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-
+import engine.DifficultyAdjustWhilePlaying;
 import screen.Screen;
 import level.WaveDefinition;
 import level.EnemyCell;
@@ -366,8 +366,12 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
+
+			// 임시 난이도 조절기가 발동되었을 때만 적의 총알의 속도를 절반으로 낮춤
+			int bulletSpeed = DifficultyAdjustWhilePlaying.getInstance().adjustEnemyBulletSpeed(BULLET_SPEED);
+			
 			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+					+ shooter.width / 2, shooter.getPositionY(), bulletSpeed));
 		}
 	}
 

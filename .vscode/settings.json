@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "res",
+        "test",
+        "src"
+    ],
+    "java.project.referencedLibraries": []
+}

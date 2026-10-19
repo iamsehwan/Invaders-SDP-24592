@@ -96,6 +96,11 @@ public final class Core {
 		int returnCode = 1;
 		do {
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			
+			 //게임을 새로 시작할 때마다 난이도 조절기의 두 개의 발동 조건들(플레이어의 목숨이 1 이하&&플레이어가 목숨이 1인 상태에서 
+			// 게임을 3레벨 이상 클리어하지 않음)을 리셋함
+			DifficultyAdjustWhilePlaying.getInstance().reset();
+
 
 			switch (returnCode) {
 			case 1:

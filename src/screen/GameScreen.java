@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Random;
-
+import engine.DifficultyAdjustWhilePlaying;
 import entity.item.ChameleonHull;
 import entity.item.ItemManager;
 import entity.item.ShieldItem;
@@ -248,6 +248,8 @@ public class GameScreen extends Screen {
 	 */
 	protected final void update() {
 		super.update();
+		//플레이어의 남은 목숨 수를 DifficultyAdjustWhilePlaying 클래스에 전달함
+		DifficultyAdjustWhilePlaying.getInstance().update(this.lives);
 
 		if (this.inputDelay.checkFinished() && !this.levelFinished) {
 
@@ -381,6 +383,10 @@ public class GameScreen extends Screen {
 					this.stageCleared = true;
 					this.screenFinishedCooldown.reset();
 					this.logger.info("Stage " + this.level + " cleared.");
+				//난이도 조절기가 발동된 상태에서 한 단계의 레벨을 클리어 할 때마다 레벨을 클리어 했음을
+				//  DifficultyAdjustWhilePlaying 클래스에 전달함
+				
+       			 DifficultyAdjustWhilePlaying.getInstance().onLevelCleared();
 				}
 			}
 		}
